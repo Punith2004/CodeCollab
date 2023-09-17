@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeCollab</title>
+</head>
+<body>
+  <textarea id="code-editor"></textarea>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const codeEditor = document.getElementById('code-editor');
+    codeEditor.addEventListener('input', () => {
+      const code = codeEditor.value;
+      socket.emit('code-change', code);
+    });
+
+    socket.on('code-change', (code) => {
+      codeEditor.value = code;
+    });
+  </script>
+</body>
+</html>
